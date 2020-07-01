@@ -4,6 +4,8 @@ app.use(express.json())
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
+app.use(express.static("public"));
+
 // import Routes
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");

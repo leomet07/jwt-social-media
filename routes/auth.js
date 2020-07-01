@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const User = require("../model/User");
-const { registerValidation, loginValidation } = require("../validation");
+const {
+    registerValidation,
+    loginValidation
+} = require("../validation");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 router.post("/register", async (req, res) => {
@@ -61,12 +64,39 @@ router.post("/login", async (req, res) => {
     const valid_pass = await bcrypt.compare(req.body.password, user.password);
 
     if (!valid_pass) {
-        return res.status(400).end("Invalid password");
+        console.log("Before crash")
+        return res.status(400).end(JSON.stringify({
+            message: "Invalid password",
+            logged_in: false
+        }));
     }
-
+    console.log("After crash")
     // create and assaign a jwt
-    const token = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN_SECRET);
-    res.header("auth-token", token).send(token);
+    const token = jwt.sign({
+        _id: user._id
+    }, process.env.ACCESS_TOKEN_SECRET);
+    res.header("auth-token", token).send({
+        token: token,
+        logged_in: true
+    });
 });
 
+router.get("/verify/:id", (req, res) => {
+
+    let token = req.params.id
+    console.log(token)
+    try {
+        const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+        if (verified) {
+            res.send({
+                valid: true
+            })
+        }
+    } catch (err) {
+        res.send({
+            valid: false
+        })
+    }
+
+})
 module.exports = router;
