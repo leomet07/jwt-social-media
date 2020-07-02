@@ -47,7 +47,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     const validation = loginValidation(req.body);
     if ("error" in validation) {
-        return res.status(400).end(validation.error.details[0].message);
+        return res.status(200).end(validation.error.details[0].message);
     }
 
     // Check if email exists in db
@@ -56,7 +56,7 @@ router.post("/login", async (req, res) => {
     });
 
     if (!user) {
-        return res.status(400).end("Email doesnt exist");
+        return res.status(200).end("Email doesnt exist");
     }
 
     // check password status
@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
 
     if (!valid_pass) {
         console.log("Before crash")
-        return res.status(400).end(JSON.stringify({
+        return res.status(200).end(JSON.stringify({
             message: "Invalid password",
             logged_in: false
         }));
