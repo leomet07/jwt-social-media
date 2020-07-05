@@ -1,6 +1,7 @@
 body {
     font-family: Arial;
     color: black;
+    text-align: center;
 }
 
 #signed_out,
@@ -39,4 +40,9 @@ form {
 
 h2 {
     margin-bottom: 4px;
+}
+
+ul {
+    list-style: none;
+    margin-right: 5%;
 }
