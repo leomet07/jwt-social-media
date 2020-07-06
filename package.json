@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "serve": "nodemon index.js",
+        "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -20,5 +21,8 @@
     },
     "devDependencies": {
         "nodemon": "^2.0.4"
+    },
+    "engines": {
+        "node": "10.x"
     }
 }

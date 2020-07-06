@@ -21,14 +21,12 @@ router.post("/register", async (req, res) => {
     });
 
     if (emailExist) {
-        return res
-            .status(200)
-            .end(
-                JSON.stringify({
-                    message: "Email already exists",
-                    logged_in: false,
-                })
-            );
+        return res.status(200).end(
+            JSON.stringify({
+                message: "Email already exists",
+                logged_in: false,
+            })
+        );
     }
 
     // Hash the password
@@ -99,7 +97,7 @@ router.post("/login", async (req, res) => {
             })
         );
     }
-    console.log("After crash");
+
     // create and assaign a jwt
     const token = jwt.sign(
         {
