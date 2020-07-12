@@ -3,15 +3,16 @@ const app = express();
 app.use(express.json());
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
+if (process.env.SSL == "true") {
+    app.enable("trust proxy");
 
-app.enable('trust proxy');
-
-app.use(function (req, res, next){
-    if (req.headers["x-forwarded-proto"] === "https"){
-       return next();
-    }
-    res.redirect("https://" + req.headers.host + req.url);  
-});
+    app.use(function (req, res, next) {
+        if (req.headers["x-forwarded-proto"] === "https") {
+            return next();
+        }
+        res.redirect("https://" + req.headers.host + req.url);
+    });
+}
 
 app.use(express.static("public"));
 
@@ -37,6 +38,6 @@ mongoose.connect(
 app.use("/api/user", authRoute);
 app.use("/api/posts", postRoute);
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log("Sever is up and running");
 });
