@@ -22,8 +22,7 @@ const postRoute = require("./routes/posts");
 
 // Connect to db
 mongoose.connect(
-    process.env.DB_CONNECT,
-    {
+    process.env.DB_CONNECT, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     },
@@ -38,6 +37,6 @@ mongoose.connect(
 app.use("/api/user", authRoute);
 app.use("/api/posts", postRoute);
 
-app.listen(process.env.PORT || 5000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log("Sever is up and running");
 });
