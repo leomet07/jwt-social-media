@@ -37,6 +37,7 @@ mongoose.connect(
 app.use("/api/user", authRoute);
 app.use("/api/posts", postRoute);
 
-app.listen(process.env.PORT || 3000, () => {
-    console.log("Sever is up and running");
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+    console.log("Sever is up and running on port " + port);
 });
